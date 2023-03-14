@@ -31,7 +31,7 @@ func main() {
 		webhookSecretKey: os.Getenv("WEBHOOK_SECRET"),
 	}
 
-	if s.client, err = getClient(false); err != nil {
+	if s.client, err = getClient(true); err != nil {
 		fmt.Printf("Error: %s", err)
 		os.Exit(1)
 	}
@@ -91,7 +91,7 @@ func getGitHubClient(ctx context.Context, token string) *github.Client {
 func deploy(ctx context.Context, client *kubernetes.Clientset, appFile []byte) (map[string]string, int32, error) {
 	var deployment *v1.Deployment
 
-	appFile, err := ioutil.ReadFile("app.yml")
+	appFile, err := ioutil.ReadFile("app.yaml")
 	if err != nil {
 		return nil, 0, fmt.Errorf("readfile error: %s", err)
 	}
