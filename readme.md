@@ -15,12 +15,30 @@ Welcome to the **Golang for DevOps** course repository! The projects here demons
 
 ## TLS Certificates CLI Tool
 
-This project provides a command-line tool for managing TLS certificates. The tool is built with Go and offers functionalities such as generating, verifying, and renewing certificates. This is particularly useful in DevOps for automating certificate management processes.
+This project provides a Cobra command-line tool for managing TLS certificates. The tool is built with Go and offers functionalities such as generating, verifying, and renewing certificates. This is particularly useful in DevOps for automating certificate management processes.
 
 ### Features:
 - Generate self-signed certificates.
 - Verify certificate chains.
 - Automatically renew certificates before expiry.
+
+## Kubernetes Integration
+
+This section explores using Go to interact with Kubernetes clusters. The project includes examples of creating and managing Kubernetes resources, as well as building a custom Kubernetes Operator.
+
+### Features:
+- Manage Kubernetes resources using the Go client.
+- Create ConfigMaps, Deployments, Services, and more programmatically.
+- Monitor and respond to changes in Kubernetes clusters.
+
+### Kubernetes Operator
+
+The Kubernetes Operator is a custom controller that extends Kubernetes' functionality. This operator is built with Go and is designed to automate the management of a specific application or resource type within a Kubernetes cluster.
+
+#### Features:
+- Watch for changes in custom resources.
+- Automate application deployment and scaling.
+- Ensure high availability and proper configuration of resources.
 
 ## Working with AWS SDK
 
@@ -48,24 +66,6 @@ A lightweight SSH server built in Go, designed to be easily customizable for var
 - Handle multiple client connections.
 - Support for custom authentication mechanisms.
 - Execute remote commands securely.
-
-## Kubernetes Integration
-
-This section explores using Go to interact with Kubernetes clusters. The project includes examples of creating and managing Kubernetes resources, as well as building a custom Kubernetes Operator.
-
-### Features:
-- Manage Kubernetes resources using the Go client.
-- Create ConfigMaps, Deployments, Services, and more programmatically.
-- Monitor and respond to changes in Kubernetes clusters.
-
-### Kubernetes Operator
-
-The Kubernetes Operator is a custom controller that extends Kubernetes' functionality. This operator is built with Go and is designed to automate the management of a specific application or resource type within a Kubernetes cluster.
-
-#### Features:
-- Watch for changes in custom resources.
-- Automate application deployment and scaling.
-- Ensure high availability and proper configuration of resources.
 
 ---
 
