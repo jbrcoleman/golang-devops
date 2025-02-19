@@ -30,7 +30,7 @@ func outgoingDnsQuery(servers []net.IP, question dnsmessage.Question) (*dnsmessa
 			Response: false,
 			OpCode:   dnsmessage.OpCode(0),
 		},
-		Questions: []dnsmessage.Question(question),
+		Questions: []dnsmessage.Question{question},
 	}
 	buf, err := message.Pack()
 	if err != nil {
@@ -38,13 +38,13 @@ func outgoingDnsQuery(servers []net.IP, question dnsmessage.Question) (*dnsmessa
 	}
 	var conn net.Conn
 	for _, server := range servers {
-		conn, err = net.Dial("udp", server.String()+"+:53")
+		conn, err = net.Dial("udp", server.String()+":53")
 		if err == nil {
 			break
 		}
 	}
 	if conn == nil {
-		return nil, nil, fmt.Errorf("Failed to make connection to servers: %s", err)
+		return nil, nil, fmt.Errorf("failed to make connection to servers: %s", err)
 	}
 	_, err = conn.Write(buf)
 	if err != nil {
@@ -61,5 +61,26 @@ func outgoingDnsQuery(servers []net.IP, question dnsmessage.Question) (*dnsmessa
 
 	var p dnsmessage.Parser
 
-	return nil, nil, nil
+	header, err := p.Start(answer[:n])
+	if err != nil {
+		return nil, nil, fmt.Errorf("parser start error: %s", err)
+	}
+
+	questions, err := p.AllQuestions()
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	if len(questions) != len(message.Questions) {
+		return nil, nil, fmt.Errorf("answer packet doesn't have the same amount of quesitons")
+	}
+
+	err = p.SkipAllQuestions()
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &p, &header, nil
 }
